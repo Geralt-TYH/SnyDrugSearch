@@ -41,6 +41,7 @@ public class chooseDrug extends Activity {
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private drugDB drugdb;
+    private boolean isFromDrugActivity;
     private List<String> dataList=new ArrayList<String>();
     /*
     * 大类列表*/
@@ -59,8 +60,9 @@ public class chooseDrug extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isFromDrugActivity=getIntent().getBooleanExtra("from_drug_activity",false);
         SharedPreferences prefes= PreferenceManager.getDefaultSharedPreferences(this);
-        if(prefes.getBoolean("selectDRUG",false)){
+        if(prefes.getBoolean("selectDRUG",false)&&!isFromDrugActivity){
             Intent intent=new Intent(this,DrugActivity.class);
             startActivity(intent);
             finish();
@@ -157,9 +159,9 @@ public class chooseDrug extends Activity {
         String address;
 
         if(!TextUtils.isEmpty(code)){
-            address="http://10.50.118.152/snydrug/data/list/drug"+code+".html";//TODO
+            address="http://10.50.119.77/snydrug/data/list/drug"+code+".html";//TODO
         }else{
-            address="http://10.50.118.152/snydrug/data/list/drug.html";//TODO
+            address="http://10.50.119.77/snydrug/data/list/drug.html";//TODO
         }
         showProgreessDialog();
         HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {

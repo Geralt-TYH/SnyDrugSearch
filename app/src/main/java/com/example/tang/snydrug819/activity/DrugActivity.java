@@ -1,6 +1,7 @@
 package com.example.tang.snydrug819.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -55,12 +56,12 @@ public class DrugActivity extends Activity {
 
 
     private void queryDrugInfoCode(String drugCode) {
-        String address="http://10.50.118.152/snydrug/data/list/drug"+drugCode+".html";//TODO
+        String address="http://10.50.119.77/snydrug/data/list/drug"+drugCode+".html";//TODO
         queryFromServer(address,"drugCode");
     }
 
     private void queryDrugInfo(String drugInfoCode){
-        String address="http://10.50.118.152/snydrug/data/druginfo/"+drugInfoCode+".html";//TODO
+        String address="http://10.50.119.77/snydrug/data/druginfo/"+drugInfoCode+".html";//TODO
         queryFromServer(address,"drugInfoCode");
 
     }
@@ -112,5 +113,11 @@ public class DrugActivity extends Activity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(this,chooseDrug.class);
+        intent.putExtra("from_drug_activity",true);
+        startActivity(intent);
+        finish();
+    }
 }
